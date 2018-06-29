@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="csvQuestionMapper" class="ru.otus.springframework.hw01.service.mapper.CsvQuestionMapper">
+    </bean>
+
+    <bean id="testService" class="ru.otus.springframework.hw01.service.TestService">
+        <constructor-arg name="questionMapper" ref="csvQuestionMapper"/>
+    </bean>
+
+    <bean id="testPrinter" class="ru.otus.springframework.hw01.TestPrinter">
+        <constructor-arg name="service" ref="testService"/>
+    </bean>
+
+</beans>
