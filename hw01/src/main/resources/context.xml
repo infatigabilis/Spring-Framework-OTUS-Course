@@ -11,7 +11,7 @@
         <constructor-arg name="questionMapper" ref="csvQuestionMapper"/>
     </bean>
 
-    <bean id="testPrinter" class="ru.otus.springframework.hw01.TestPrinter">
+    <bean id="testPrinter" class="ru.otus.springframework.hw01.TestPrinterImpl">
         <constructor-arg name="service" ref="testService"/>
     </bean>
 
