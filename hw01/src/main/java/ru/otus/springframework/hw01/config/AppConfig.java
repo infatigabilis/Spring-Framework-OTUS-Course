@@ -1,4 +1,4 @@
-package ru.otus.springframework.hw02.config;
+package ru.otus.springframework.hw01.config;
 
 public class AppConfig {
     public static final String DATA_FILE_PATH = "data.csv";

@@ -1,9 +1,9 @@
-package ru.otus.springframework.hw02.service.mapper;
+package ru.otus.springframework.hw01.service.mapper;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import ru.otus.springframework.hw02.domain.Question;
+import ru.otus.springframework.hw01.domain.Question;
 
 import java.io.File;
 import java.io.IOException;

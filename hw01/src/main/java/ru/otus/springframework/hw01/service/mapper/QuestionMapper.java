@@ -1,6 +1,6 @@
-package ru.otus.springframework.hw02.service.mapper;
+package ru.otus.springframework.hw01.service.mapper;
 
-import ru.otus.springframework.hw02.domain.Question;
+import ru.otus.springframework.hw01.domain.Question;
 
 import java.io.File;
 import java.io.IOException;

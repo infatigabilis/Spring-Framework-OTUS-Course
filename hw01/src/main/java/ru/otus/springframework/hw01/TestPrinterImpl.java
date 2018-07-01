@@ -1,9 +1,9 @@
-package ru.otus.springframework.hw02;
+package ru.otus.springframework.hw01;
 
-import ru.otus.springframework.hw02.config.AppConfig;
-import ru.otus.springframework.hw02.domain.Question;
-import ru.otus.springframework.hw02.domain.TestResult;
-import ru.otus.springframework.hw02.service.TestService;
+import ru.otus.springframework.hw01.config.AppConfig;
+import ru.otus.springframework.hw01.domain.Question;
+import ru.otus.springframework.hw01.domain.TestResult;
+import ru.otus.springframework.hw01.service.TestService;
 
 import java.io.BufferedReader;
 import java.io.IOException;

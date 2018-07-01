@@ -1,4 +1,4 @@
-package ru.otus.springframework.hw02;
+package ru.otus.springframework.hw01;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

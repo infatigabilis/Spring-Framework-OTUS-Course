@@ -4,9 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import ru.otus.springframework.hw02.domain.Question;
-import ru.otus.springframework.hw02.domain.TestResult;
-import ru.otus.springframework.hw02.service.TestService;
+import ru.otus.springframework.hw01.domain.Question;
+import ru.otus.springframework.hw01.domain.TestResult;
+import ru.otus.springframework.hw01.service.TestService;
+import ru.otus.springframework.hw01.service.mapper.QuestionMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
