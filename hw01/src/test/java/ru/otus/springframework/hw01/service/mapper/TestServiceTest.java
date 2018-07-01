@@ -1,4 +1,4 @@
-package ru.otus.springframework.hw02.service.mapper;
+package ru.otus.springframework.hw01.service.mapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
