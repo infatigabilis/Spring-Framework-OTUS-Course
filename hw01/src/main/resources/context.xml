@@ -4,14 +4,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="csvQuestionMapper" class="ru.otus.springframework.hw01.service.mapper.CsvQuestionMapper">
+    <bean id="csvQuestionMapper" class="ru.otus.springframework.hw02.service.mapper.CsvQuestionMapper">
     </bean>
 
-    <bean id="testService" class="ru.otus.springframework.hw01.service.TestService">
+    <bean id="testService" class="ru.otus.springframework.hw02.service.TestService">
         <constructor-arg name="questionMapper" ref="csvQuestionMapper"/>
     </bean>
 
-    <bean id="testPrinter" class="ru.otus.springframework.hw01.TestPrinterImpl">
+    <bean id="testPrinter" class="ru.otus.springframework.hw02.TestPrinterImpl">
         <constructor-arg name="service" ref="testService"/>
     </bean>
 
