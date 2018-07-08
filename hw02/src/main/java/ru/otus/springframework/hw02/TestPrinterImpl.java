@@ -1,23 +1,40 @@
-package ru.otus.springframework.hw01;
+package ru.otus.springframework.hw02;
 
-import ru.otus.springframework.hw01.config.AppConfig;
-import ru.otus.springframework.hw01.domain.Question;
-import ru.otus.springframework.hw01.domain.TestResult;
-import ru.otus.springframework.hw01.service.TestService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+import ru.otus.springframework.hw02.domain.Question;
+import ru.otus.springframework.hw02.domain.TestResult;
+import ru.otus.springframework.hw02.service.TestService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
+@Service
 public class TestPrinterImpl implements TestPrinter {
+    private final boolean showDetailedResult;
+    private final boolean showWrongAnswers;
+    private final Locale locale;
+
     private static final String ANSWER_LETTERS = "abcdefg";
 
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private final TestService service;
+    private final MessageSource ms;
 
-    public TestPrinterImpl(TestService service) {
+    public TestPrinterImpl(TestService service, MessageSource messageSource,
+                           @Value("${app.show_detailed_result}") boolean showDetailedResult,
+                           @Value("${app.show_wrong_answers}") boolean showWrongAnswers,
+                           @Value("${app.locale}") Locale locale) {
+
         this.service = service;
+        this.ms = messageSource;
+        this.showDetailedResult = showDetailedResult;
+        this.showWrongAnswers = showWrongAnswers;
+        this.locale = locale;
     }
 
     public void run() {
@@ -35,15 +52,15 @@ public class TestPrinterImpl implements TestPrinter {
     }
 
     private void sayHello() {
-        System.out.println("Добро пожаловать в программу тестирования калькуляторов!");
+        System.out.println(ms.getMessage("hello", new String[0], locale));
         System.out.println();
     }
 
     private void askName() throws IOException {
-        System.out.print("Введите имя: ");
+        System.out.print(ms.getMessage("enter_your_name", new String[0], locale));
         reader.readLine();
 
-        System.out.print("Введите фамилию: ");
+        System.out.print(ms.getMessage("enter_your_last_name", new String[0], locale));
         reader.readLine();
 
         System.out.println();
@@ -61,7 +78,7 @@ public class TestPrinterImpl implements TestPrinter {
 
             System.out.println();
 
-            System.out.print("Ваш ответ: ");
+            System.out.print(ms.getMessage("your_answer", new String[0], locale));
 
             final int userAnswer = answerLetterToIndex(reader.readLine());
             service.answerCurrentQuestion(userAnswer);
@@ -71,29 +88,31 @@ public class TestPrinterImpl implements TestPrinter {
     }
 
     private void showResult() {
-        System.out.println("Тест завершен");
+        System.out.println(ms.getMessage("test_completed", new String[0], locale));
         System.out.println();
 
         final TestResult userResult = service.getResult();
 
-        if (AppConfig.SHOW_DETAILED_RESULT) {
+        if (showDetailedResult) {
             final String resultRes = userResult.getWrongs().isEmpty()
-                    ? "все ответы верны! Поздравляем!!!"
+                    ? ms.getMessage("all_answers_are_correct", new String[0], locale)
                     : String.format("%s/%s", userResult.getSuccess(), userResult.getTotal());
 
-            System.out.println("Ваш результат: " + resultRes);
+            System.out.println(ms.getMessage("your_result", new String[0], locale) + resultRes);
 
-            if (AppConfig.SHOW_WRONG_ANSWERS && !userResult.getWrongs().isEmpty()) {
+            if (showWrongAnswers && !userResult.getWrongs().isEmpty()) {
                 final String wrongAnswersRes = userResult.getWrongs().stream()
                         .map(Object::toString)
                         .reduce((i1, i2) -> i1 + ", " + i2)
                         .get();
 
-                System.out.println("Неправильные ответы: " + wrongAnswersRes);
+                System.out.println(ms.getMessage("wrong_answers", new String[0], locale) + wrongAnswersRes);
             }
 
         } else {
-            System.out.println(userResult.getSuccess() == userResult.getTotal() ? "Тест пройден!" : "Тест не пройден...");
+            System.out.println(userResult.getSuccess() == userResult.getTotal()
+                    ? ms.getMessage("test_passed", new String[0], locale)
+                    : ms.getMessage("test_failed", new String[0], locale));
         }
     }
 

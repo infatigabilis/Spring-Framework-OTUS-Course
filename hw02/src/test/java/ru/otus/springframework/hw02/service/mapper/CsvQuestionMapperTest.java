@@ -1,8 +1,7 @@
-package ru.otus.springframework.hw01.service.mapper;
+package ru.otus.springframework.hw02.service.mapper;
 
 import org.junit.Test;
-import ru.otus.springframework.hw01.domain.Question;
-import ru.otus.springframework.hw01.service.mapper.CsvQuestionMapper;
+import ru.otus.springframework.hw02.domain.Question;
 
 import java.io.File;
 import java.io.IOException;

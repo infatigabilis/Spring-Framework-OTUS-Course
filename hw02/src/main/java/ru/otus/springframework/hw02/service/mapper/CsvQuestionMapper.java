@@ -1,9 +1,10 @@
-package ru.otus.springframework.hw01.service.mapper;
+package ru.otus.springframework.hw02.service.mapper;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import ru.otus.springframework.hw01.domain.Question;
+import org.springframework.stereotype.Service;
+import ru.otus.springframework.hw02.domain.Question;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Service
 public class CsvQuestionMapper implements QuestionMapper {
     public List<Question> parse(File file) throws IOException {
         AtomicInteger i = new AtomicInteger();

@@ -1,4 +1,4 @@
-package ru.otus.springframework.hw01.dataset;
+package ru.otus.springframework.hw01.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
