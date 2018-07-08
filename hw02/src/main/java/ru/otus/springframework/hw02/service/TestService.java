@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class TestService {
-    @Value("${app.data_file}") private String dataFilePath = "";
+    private final String dataFilePath;
 
     private final QuestionMapper questionMapper;
 
@@ -24,15 +24,23 @@ public class TestService {
     private Iterator<Question> questionIterator;
     private Question currentQuestion;
 
-    public TestService(QuestionMapper questionMapper) {
+    public TestService(QuestionMapper questionMapper, @Value("${app.data_file}") String dataFilePath) {
         this.questionMapper = questionMapper;
+        this.dataFilePath = dataFilePath;
+
+        init();
     }
 
     @PostConstruct
-    public void init() throws IOException {
-        questions = questionMapper.parse(new File(getClass().getClassLoader().getResource(dataFilePath).getFile()));
-        questionIterator = questions.iterator();
-        result = new TestResult(questions.size());
+    public void init() {
+        try {
+            questions = questionMapper.parse(new File(getClass().getClassLoader().getResource(dataFilePath).getFile()));
+            questionIterator = questions.iterator();
+            result = new TestResult(questions.size());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Question askNextQuestion() {

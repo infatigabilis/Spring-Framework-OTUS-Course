@@ -17,13 +17,7 @@ public class CsvQuestionMapperTest {
 
     @Test
     public void success() throws IOException {
-        final String csv = "question1,10,answer1,answer2,answer3,answer4,answer5\n" +
-                           "question2,2,answer5,answer4";
-
-        final String filename = "csv-test-" + UUID.randomUUID();
-        File file = File.createTempFile(filename, null);
-        Files.write(file.toPath(), csv.getBytes());
-
+        final File file = new File(getClass().getClassLoader().getResource("csv_mapper_test_data.csv").getFile());
         List<Question> actual = csvQuestionMapper.parse(file);
 
         assertEquals(2, actual.size());

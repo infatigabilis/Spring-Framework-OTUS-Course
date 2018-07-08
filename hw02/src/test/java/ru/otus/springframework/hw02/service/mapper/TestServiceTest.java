@@ -31,8 +31,7 @@ public class TestServiceTest {
             add(q2);
         }});
 
-        service = new TestService(questionMapper);
-        service.init();
+        service = new TestService(questionMapper, "");
 
         Question actual1 = service.askNextQuestion();
         assertEquals(1, actual1.getIndex());

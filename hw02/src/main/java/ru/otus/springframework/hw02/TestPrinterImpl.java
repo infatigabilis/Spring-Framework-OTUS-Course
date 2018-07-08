@@ -14,9 +14,9 @@ import java.util.Locale;
 
 @Service
 public class TestPrinterImpl implements TestPrinter {
-    @Value("${app.show_detailed_result}") private boolean showDetailedResult;
-    @Value("${app.show_wrong_answers}") private boolean showWrongAnswers;
-    @Value("${app.locale}") private Locale locale;
+    private final boolean showDetailedResult;
+    private final boolean showWrongAnswers;
+    private final Locale locale;
 
     private static final String ANSWER_LETTERS = "abcdefg";
 
@@ -25,9 +25,16 @@ public class TestPrinterImpl implements TestPrinter {
     private final TestService service;
     private final MessageSource ms;
 
-    public TestPrinterImpl(TestService service, MessageSource messageSource) {
+    public TestPrinterImpl(TestService service, MessageSource messageSource,
+                           @Value("${app.show_detailed_result}") boolean showDetailedResult,
+                           @Value("${app.show_wrong_answers}") boolean showWrongAnswers,
+                           @Value("${app.locale}") Locale locale) {
+
         this.service = service;
         this.ms = messageSource;
+        this.showDetailedResult = showDetailedResult;
+        this.showWrongAnswers = showWrongAnswers;
+        this.locale = locale;
     }
 
     public void run() {
