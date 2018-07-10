@@ -1,0 +1,9 @@
+application:
+  data-file-path: csv_mapper_test_data.csv
+  show-detailed-result: true
+  show-wrong-answers: true
+  locale: #{T(java.util.Locale).getDefault()}
+
+logging:
+  level:
+    root: ERROR
