@@ -1,14 +1,19 @@
-package ru.otus.springframework.hw04.integration;
+package ru.otus.springframework.hw05.integration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.springframework.hw04.domain.Question;
-import ru.otus.springframework.hw04.domain.TestResult;
-import ru.otus.springframework.hw04.service.TestService;
+import ru.otus.springframework.hw05.config.AppSettings;
+import ru.otus.springframework.hw05.domain.Question;
+import ru.otus.springframework.hw05.domain.TestResult;
+import ru.otus.springframework.hw05.service.TestService;
+import ru.otus.springframework.hw05.service.mapper.CsvQuestionMapper;
+import ru.otus.springframework.hw05.service.mapper.QuestionMapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -16,6 +21,26 @@ import static org.junit.Assert.assertNull;
 @SpringBootTest @RunWith(SpringRunner.class)
 public class TestServiceTest {
     @Autowired private TestService service;
+
+    @Configuration
+    static class TestConfiguration {
+        @Bean
+        public AppSettings appSettings() {
+            return new AppSettings() {{
+                setDataFilePath("csv_mapper_test_data.csv");
+            }};
+        }
+
+        @Bean
+        public QuestionMapper questionMapper() {
+            return new CsvQuestionMapper();
+        }
+
+        @Bean
+        public TestService testService() {
+            return new TestService(appSettings(), questionMapper());
+        }
+    }
 
     @Test
     public void success() {
