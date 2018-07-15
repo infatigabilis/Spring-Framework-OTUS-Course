@@ -10,3 +10,6 @@ Spring Context на базе XML.
 
 ## HW4 - Spring Boot
 Перенос проекта по тестоированию(HW1, HW2) на Spring Boot.
+
+## HW5 - Spring Shell
+Добавление к HW4 функицонала из Spring Shell.
