@@ -13,3 +13,8 @@ Spring Context на базе XML.
 
 ## HW5 - Spring Shell
 Добавление к HW4 функицонала из Spring Shell.
+
+## HW6 - Spring JDBC
+Создание библиотики(информация по книге, авторы, жанры).
+Взаимодействие с бд при помощи Spring JDBC, интерфейс на 
+Spring Shell.
