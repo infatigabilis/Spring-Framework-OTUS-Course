@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.springframework.hw06.dao.AuthorDao;
 import ru.otus.springframework.hw06.domain.Author;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,9 +36,7 @@ public class AuthorJdbcDao implements AuthorDao {
                 put("surname", author.getSurname());
             }});
         } else {
-            jdbc.update("insert into authors (`name`) values (:name)", new HashMap<String, Object>() {{
-                put("name", author.getName());
-            }});
+            jdbc.update("insert into authors (`name`) values (:name)", Collections.singletonMap("name", author.getName()));
         }
     }
 }

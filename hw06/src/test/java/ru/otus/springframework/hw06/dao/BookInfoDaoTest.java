@@ -9,6 +9,7 @@ import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.otus.springframework.hw06.domain.BookInfo;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -51,6 +52,11 @@ public class BookInfoDaoTest {
 
         assertEquals(6, actual.size());
         assertTrue(actual.stream().anyMatch(b -> b.getTitle().equals("Hello World")));
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testValidation() {
+        dao.insert(new BookInfo(-1, "Hello World", "123", null, null));
     }
 
     @Test
