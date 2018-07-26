@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
 import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.otus.springframework.hw06.dao.BookInfoDao;
 import ru.otus.springframework.hw06.domain.BookInfo;
 
 import javax.validation.ConstraintViolationException;

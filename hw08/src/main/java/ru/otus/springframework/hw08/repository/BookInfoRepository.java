@@ -1,4 +1,4 @@
-package ru.otus.springframework.hw08.dao;
+package ru.otus.springframework.hw08.repository;
 
 import org.springframework.validation.annotation.Validated;
 import ru.otus.springframework.hw08.domain.BookInfo;

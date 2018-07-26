@@ -1,37 +1,51 @@
 package ru.otus.springframework.hw08.repository;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.otus.springframework.hw08.domain.BookInfo;
+import ru.otus.springframework.hw08.domain.Comment;
 import ru.otus.springframework.hw08.domain.Genre;
 import ru.otus.springframework.hw08.repository.base.BaseRepositoryTest;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class GenreRepositoryTest extends BaseRepositoryTest {
-    @Autowired private GenreRepository repository;
+public class CommentRepositoryTest extends BaseRepositoryTest {
+    @Autowired private BookInfoRepository bookInfoRepository;
+    @Autowired private CommentRepository repository;
 
-    @Test
-    public void whenFindById_thenReturnOne() {
-        final Genre expected = new Genre(null, "Name");
-        repository.add(expected);
-
-        final Genre actual = repository.getById(expected.getId());
-
-        assertEquals(expected, actual);
+    @After
+    public void setUp() {
+        transactionTemplate.execute(status -> {
+            bookInfoRepository.getAll().forEach(book -> {
+                book.getComments().forEach(o -> em.remove(o));
+                em.remove(book);
+            });
+            return null;
+        });
     }
 
     @Test
-    public void whenGetAll_thenReturnAll() {
-        final Genre expected1 = new Genre(null, "Name");
-        repository.add(expected1);
-        final Genre expected2 = new Genre(null, "Name2");
-        repository.add(expected2);
+    public void whenFindById_thenReturn() {
+        final BookInfo book = new BookInfo(null, "Title", "Desc", Collections.emptySet(), Collections.emptySet(), Collections.emptyList());
+        bookInfoRepository.add(book);
 
-        final List<Genre> actual = repository.getAll();
+        Comment comment1 = Comment.builder().text("Aliquam eros leo, bibendum ac sem et").build();
+        Comment comment2 = Comment.builder().text("tempor cursus ante").build();
 
-        assertEquals(Arrays.asList(expected1, expected2), actual);
+        repository.add(comment1, book.getId());
+        repository.add(comment2, book.getId());
+
+        final BookInfo actual = bookInfoRepository.getById(book.getId());
+
+        assertEquals(2, actual.getComments().size());
+        assertEquals(comment1.getText(), actual.getComments().get(0).getText());
+        assertEquals(comment2.getText(), actual.getComments().get(1).getText());
     }
 }

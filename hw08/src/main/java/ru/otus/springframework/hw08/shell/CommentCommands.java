@@ -3,42 +3,26 @@ package ru.otus.springframework.hw08.shell;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import ru.otus.springframework.hw08.domain.Comment;
 import ru.otus.springframework.hw08.domain.Genre;
-import ru.otus.springframework.hw08.repository.GenreRepository;
+import ru.otus.springframework.hw08.repository.CommentRepository;
 
 import java.util.List;
 
 @ShellComponent
-public class GenreCommands {
-    private static final String EMPTY_GENRE_LIST_VALUE = "There is no genre...";
+public class CommentCommands {
     private static final String OK_VALUE = "OK";
 
-    private final GenreRepository genreDao;
+    private final CommentRepository commentRepository;
 
-    public GenreCommands(GenreRepository genreDao) {
-        this.genreDao = genreDao;
+    public CommentCommands(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
 
-    @ShellMethod("Get a list of all genres")
-    public String allGenres() {
-        return printGenres(genreDao.getAll());
-    }
-
-    @ShellMethod("Add new genre")
-    public String addGenre(@ShellOption String name) {
-        genreDao.add(Genre.builder().name(name).build());
+    @ShellMethod("Add new comment to book")
+    public String addComment(@ShellOption String text, @ShellOption long bookId) {
+        commentRepository.add(Comment.builder().text(text).build(), bookId);
         return OK_VALUE;
-    }
-
-    private String printGenres(List<Genre> genres) {
-        return genres.stream()
-                .map(this::printGenre)
-                .reduce((s1, s2) -> s1 + "\n" + s2)
-                .orElse(EMPTY_GENRE_LIST_VALUE);
-    }
-
-    private String printGenre(Genre author) {
-        return String.format("[%s] %s", author.getId(), author.getName());
     }
 }

@@ -1,16 +1,15 @@
-package ru.otus.springframework.hw06.shell;
+package ru.otus.springframework.hw08.shell;
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.springframework.hw06.dao.BookInfoDao;
-import ru.otus.springframework.hw06.domain.Author;
-import ru.otus.springframework.hw06.domain.BookInfo;
-import ru.otus.springframework.hw06.domain.Genre;
+import ru.otus.springframework.hw08.domain.Author;
+import ru.otus.springframework.hw08.domain.BookInfo;
+import ru.otus.springframework.hw08.domain.Comment;
+import ru.otus.springframework.hw08.domain.Genre;
+import ru.otus.springframework.hw08.repository.BookInfoRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
@@ -18,14 +17,15 @@ import static org.springframework.util.StringUtils.isEmpty;
 public class BookCommands {
     private static final String EMPTY_AUTHORS_VALUE = "Various authors";
     private static final String EMPTY_GENRES_VALUE = "-";
+    private static final String EMPTY_COMMENTS_VALUE = "There are no comment... Be the first!";
     private static final String EMPTY_LIBRARY_VALUE = "Library is empty...";
     private static final String OK_VALUE = "OK";
 
     private static final int TEXT_LENGTH = 50;
 
-    private final BookInfoDao bookInfoDao;
+    private final BookInfoRepository bookInfoDao;
 
-    public BookCommands(BookInfoDao bookInfoDao) {
+    public BookCommands(BookInfoRepository bookInfoDao) {
         this.bookInfoDao = bookInfoDao;
     }
 
@@ -42,11 +42,7 @@ public class BookCommands {
 
     @ShellMethod("Add new book")
     public String addBook(@ShellOption String title, @ShellOption(defaultValue = "") String desc) {
-        bookInfoDao.insert(new BookInfo() {{
-            setTitle(title);
-            setDescription(desc);
-        }});
-
+        bookInfoDao.add(BookInfo.builder().title(title).description(desc).build());
         return OK_VALUE;
     }
 
@@ -80,15 +76,18 @@ public class BookCommands {
                 "",
                 String.format("Genres: %s", printGenres(book.getGenres())),
                 "",
-                printDescription(book.getDescription()),
-                ""
+                printLongText(book.getDescription()),
+                "",
+                "----- comments: -----",
+                "",
+                printComments(book.getComments())
             }
         )
                 .reduce((s1, s2) -> s1 + "\n" + s2)
                 .orElse("");
     }
 
-    private String printDescription(String desc) {
+    private String printLongText(String desc) {
         if (desc == null) {
             return "";
         }
@@ -118,7 +117,7 @@ public class BookCommands {
         return String.format("[%s] \"%s\" by %s", book.getId(), book.getTitle(), printAuthors(book.getAuthors()));
     }
 
-    private String printAuthors(List<Author> authors) {
+    private String printAuthors(Collection<Author> authors) {
         return authors.stream().map(this::printAuthor).reduce((s1, s2) -> s1 + ", " + s2).orElse(EMPTY_AUTHORS_VALUE);
     }
 
@@ -129,7 +128,13 @@ public class BookCommands {
         return author.getName();
     }
 
-    private String printGenres(List<Genre> genres) {
+    private String printGenres(Collection<Genre> genres) {
         return genres.stream().map(Genre::getName).reduce((s1, s2) -> s1 + ", " + s2).orElse(EMPTY_GENRES_VALUE);
+    }
+
+    private String printComments(Collection<Comment> comments) {
+        return comments.stream()
+                .map(comment -> String.format("%s\n%s\n", comment.getCreateAt(), printLongText(comment.getText())))
+                .reduce((s1, s2) -> s1 + "\n" + s2).orElse(EMPTY_COMMENTS_VALUE);
     }
 }

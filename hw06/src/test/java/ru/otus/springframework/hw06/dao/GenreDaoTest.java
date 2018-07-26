@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
 import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.springframework.hw06.domain.Author;
+import ru.otus.springframework.hw06.dao.GenreDao;
+import ru.otus.springframework.hw06.domain.Genre;
 
 import java.util.List;
 
@@ -19,26 +20,25 @@ import static org.junit.Assert.assertTrue;
         InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
         ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
 })
-public class AuthorDaoTest {
-    @Autowired private AuthorDao dao;
+public class GenreDaoTest {
+    @Autowired private GenreDao dao;
 
     @Test
     public void getAll() {
-        List<Author> actual = dao.getAll();
+        List<Genre> actual = dao.getAll();
 
-        assertEquals(7, actual.size());
-        assertTrue(actual.stream().anyMatch(a -> a.getName().equals("Лев")));
-        assertTrue(actual.stream().anyMatch(a -> a.getName().equals("Richard")));
-        assertTrue(actual.stream().anyMatch(a -> a.getSurname().equals("Sands")));
+        assertEquals(8, actual.size());
+        assertTrue(actual.stream().anyMatch(g -> g.getName().equals("Роман")));
+        assertTrue(actual.stream().anyMatch(g -> g.getName().equals("Documentation")));
     }
 
     @Test
     public void insert() {
-        dao.insert(new Author(0, "Hello", null));
+        dao.insert(new Genre(0, "Pulp Fiction"));
 
-        List<Author> actual = dao.getAll();
+        List<Genre> actual = dao.getAll();
 
-        assertEquals(8, actual.size());
-        assertTrue(actual.stream().anyMatch(a -> a.getName().equals("Hello")));
+        assertEquals(9, actual.size());
+        assertTrue(actual.stream().anyMatch(g -> g.getName().equals("Pulp Fiction")));
     }
 }

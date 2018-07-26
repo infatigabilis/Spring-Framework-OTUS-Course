@@ -1,10 +1,10 @@
-package ru.otus.springframework.hw06.shell;
+package ru.otus.springframework.hw08.shell;
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.springframework.hw06.dao.GenreDao;
-import ru.otus.springframework.hw06.domain.Genre;
+import ru.otus.springframework.hw08.domain.Genre;
+import ru.otus.springframework.hw08.repository.GenreRepository;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ public class GenreCommands {
     private static final String EMPTY_GENRE_LIST_VALUE = "There is no genre...";
     private static final String OK_VALUE = "OK";
 
-    private final GenreDao genreDao;
+    private final GenreRepository genreDao;
 
-    public GenreCommands(GenreDao genreDao) {
+    public GenreCommands(GenreRepository genreDao) {
         this.genreDao = genreDao;
     }
 
@@ -27,10 +27,7 @@ public class GenreCommands {
 
     @ShellMethod("Add new genre")
     public String addGenre(@ShellOption String name) {
-        genreDao.insert(new Genre() {{
-            setName(name);
-        }});
-
+        genreDao.add(Genre.builder().name(name).build());
         return OK_VALUE;
     }
 

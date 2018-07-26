@@ -1,10 +1,10 @@
-package ru.otus.springframework.hw06.shell;
+package ru.otus.springframework.hw08.shell;
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.springframework.hw06.dao.AuthorDao;
-import ru.otus.springframework.hw06.domain.Author;
+import ru.otus.springframework.hw08.domain.Author;
+import ru.otus.springframework.hw08.repository.AuthorRepository;
 
 import java.util.List;
 
@@ -15,25 +15,21 @@ public class AuthorCommands {
     private static final String EMPTY_AUTHOR_LIST_VALUE = "There is no author...";
     private static final String OK_VALUE = "OK";
 
-    private final AuthorDao authorDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorCommands(AuthorDao authorDao) {
-        this.authorDao = authorDao;
+    public AuthorCommands(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
 
     @ShellMethod("Get a list of all authors")
     public String allAuthors() {
-        return printAuthors(authorDao.getAll());
+        return printAuthors(authorRepository.getAll());
     }
 
     @ShellMethod("Add new author")
     public String addAuthor(@ShellOption String name, @ShellOption(defaultValue = "") String surname) {
-        authorDao.insert(new Author() {{
-            setName(name);
-            setSurname(surname);
-        }});
-
+        authorRepository.add(Author.builder().name(name).surname(surname).build());
         return OK_VALUE;
     }
 

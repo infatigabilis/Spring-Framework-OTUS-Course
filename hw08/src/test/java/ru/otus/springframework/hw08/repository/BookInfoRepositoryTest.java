@@ -1,81 +1,80 @@
-package ru.otus.springframework.hw08.dao;
+package ru.otus.springframework.hw08.repository;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.shell.jline.InteractiveShellApplicationRunner;
-import org.springframework.shell.jline.ScriptShellApplicationRunner;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.otus.springframework.hw08.domain.Author;
 import ru.otus.springframework.hw08.domain.BookInfo;
+import ru.otus.springframework.hw08.domain.Comment;
+import ru.otus.springframework.hw08.domain.Genre;
+import ru.otus.springframework.hw08.repository.base.BaseRepositoryTest;
 
-import javax.validation.ConstraintViolationException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(properties = {
-        InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
-})
-public class BookInfoDaoTest {
-    @Autowired private BookInfoRepository dao;
+public class BookInfoRepositoryTest extends BaseRepositoryTest {
+    @Autowired private AuthorRepository authorRepository;
+    @Autowired private GenreRepository genreRepository;
+    @Autowired private BookInfoRepository repository;
+    @Autowired private CommentRepository commentRepository;
 
-    @Test
-    public void getById() {
-        BookInfo actual = dao.getById(4);
-
-        assertEquals("Data Structures and Algorithms in Java", actual.getTitle());
-        assertEquals(2, actual.getAuthors().size());
-        assertTrue(actual.getAuthors().stream().anyMatch(a -> a.getName().equals("Roberto")));
-        assertEquals(3, actual.getGenres().size());
-        assertTrue(actual.getGenres().stream().anyMatch(g -> g.getName().equals("Java")));
+    @After
+    public void setUp() {
+        transactionTemplate.execute(status -> {
+            repository.getAll().forEach(o -> {
+                o.getGenres().forEach(g -> em.remove(g));
+                o.getAuthors().forEach(a -> em.remove(a));
+                em.remove(o);
+            });
+            return null;
+        });
     }
 
     @Test
-    public void getAll() {
-        List<BookInfo> actual = dao.getAll();
+    public void whenFindById_thenReturnOne() {
+        Author author1 = new Author(null, "Author1", null);
+        authorRepository.add(author1);
+        Author author2 = new Author(null, "Author2", "Surname");
+        authorRepository.add(author2);
 
-        assertEquals(5, actual.size());
-        assertTrue(actual.stream().anyMatch(b -> b.getTitle().equals("Война и мир")));
-        assertTrue(actual.stream().anyMatch(b -> b.getTitle().equals("Data Structures and Algorithms in Java")));
-        assertTrue(actual.stream().anyMatch(b -> b.getTitle().equals("Фейнмановские лекции по физике. Выпуск 9. Квантовая механика")));
+        Genre genre = new Genre(null, "Genre");
+        genreRepository.add(genre);
+
+
+        final BookInfo expected = new BookInfo(
+                null,
+                "Title",
+                "Desc",
+                new LinkedHashSet<>(Arrays.asList(author1, author2)),
+                Collections.singleton(genre),
+                Collections.emptyList()
+        );
+
+        repository.add(expected);
+
+
+        final BookInfo actual = repository.getById(expected.getId());
+
+        assertEquals(expected.getTitle(), actual.getTitle());
+        assertEquals(expected.getDescription(), actual.getDescription());
+        assertEquals(expected.getAuthors(), actual.getAuthors());
+        assertEquals(expected.getGenres(), actual.getGenres());
     }
 
     @Test
-    public void insert() {
-        dao.add(new BookInfo(0, "Hello World", "123", null, null));
+    public void whenGetAll_thenReturnAll() {
+        final BookInfo expected1 = new BookInfo(null, "Title1", "Desc1", Collections.emptySet(), Collections.emptySet(), Collections.emptyList());
+        repository.add(expected1);
+        final BookInfo expected2 = new BookInfo(null, "Title2", "Desc2", Collections.emptySet(), Collections.emptySet(), Collections.emptyList());
+        repository.add(expected2);
 
-        List<BookInfo> actual = dao.getAll();
+        final List<BookInfo> actual = repository.getAll();
 
-        assertEquals(6, actual.size());
-        assertTrue(actual.stream().anyMatch(b -> b.getTitle().equals("Hello World")));
-    }
-
-    @Test(expected = ConstraintViolationException.class)
-    public void testValidation() {
-        dao.add(new BookInfo(-1, "Hello World", "123", null, null));
-    }
-
-    @Test
-    public void addAuthor() {
-        dao.addAuthor(3, 1);
-
-        BookInfo actual = dao.getById(3);
-
-        assertEquals(4, actual.getAuthors().size());
-        assertTrue(actual.getAuthors().stream().anyMatch(a -> a.getName().equals("Михаил")));
-    }
-
-    @Test
-    public void addGenre() {
-        dao.addGenre(3, 1);
-
-        BookInfo actual = dao.getById(3);
-
-        assertEquals(3, actual.getGenres().size());
-        assertTrue(actual.getGenres().stream().anyMatch(a -> a.getName().equals("Роман")));
+        assertEquals(2, actual.size());
     }
 }

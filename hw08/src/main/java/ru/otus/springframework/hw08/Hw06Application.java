@@ -1,5 +1,6 @@
-package ru.otus.springframework.hw06;
+package ru.otus.springframework.hw08;
 
+import org.h2.tools.Console;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
