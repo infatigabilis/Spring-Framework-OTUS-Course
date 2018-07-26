@@ -1,7 +1,6 @@
 package ru.otus.springframework.hw08.repository.impl;
 
 import org.springframework.stereotype.Repository;
-import ru.otus.springframework.hw08.domain.BookInfo;
 import ru.otus.springframework.hw08.domain.Comment;
 import ru.otus.springframework.hw08.repository.BookInfoRepository;
 import ru.otus.springframework.hw08.repository.CommentRepository;

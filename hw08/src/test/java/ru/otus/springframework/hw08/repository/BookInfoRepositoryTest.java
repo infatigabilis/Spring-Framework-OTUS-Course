@@ -1,12 +1,10 @@
 package ru.otus.springframework.hw08.repository;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.otus.springframework.hw08.domain.Author;
 import ru.otus.springframework.hw08.domain.BookInfo;
-import ru.otus.springframework.hw08.domain.Comment;
 import ru.otus.springframework.hw08.domain.Genre;
 import ru.otus.springframework.hw08.repository.base.BaseRepositoryTest;
 

@@ -1,7 +1,6 @@
 package ru.otus.springframework.hw08.repository;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.otus.springframework.hw08.domain.Genre;

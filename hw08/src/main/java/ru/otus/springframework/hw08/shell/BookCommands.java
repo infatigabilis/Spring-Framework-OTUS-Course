@@ -9,7 +9,10 @@ import ru.otus.springframework.hw08.domain.Comment;
 import ru.otus.springframework.hw08.domain.Genre;
 import ru.otus.springframework.hw08.repository.BookInfoRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
