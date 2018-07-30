@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
 import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.springframework.hw06.domain.Author;
+import ru.otus.springframework.hw06.dao.GenreDao;
 import ru.otus.springframework.hw06.domain.Genre;
 
 import java.util.List;
