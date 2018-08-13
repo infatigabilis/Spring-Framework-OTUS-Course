@@ -22,3 +22,6 @@ Spring Shell.
 ## HW8 - JPA, Spring ORM
 Перенос HW6 на JPA и Spring ORM. Добавление возможности
 комментирование книги.
+
+## HW10 - Spring Data JPA
+Миграция HW8 на Spring Data JPA.
