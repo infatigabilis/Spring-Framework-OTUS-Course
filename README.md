@@ -25,3 +25,6 @@ Spring Shell.
 
 ## HW10 - Spring Data JPA
 Миграция HW8 на Spring Data JPA.
+
+## HW10 - Spring Data MongoDB
+Миграция HW10 на Spring Data MongoDB.
