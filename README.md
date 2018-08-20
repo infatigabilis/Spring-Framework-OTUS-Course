@@ -26,5 +26,8 @@ Spring Shell.
 ## HW10 - Spring Data JPA
 Миграция HW8 на Spring Data JPA.
 
-## HW14 - Spring Data Views (Thymeleaf)
+## HW14 - Spring MVC Views (Thymeleaf)
 Добавление к HW10 веб-интерфейса на Views (Thymeleaf)
+
+## HW15 - Spring MVC Rest
+Добавление к HW10 веб-интерфейса на JSON RESTful API
