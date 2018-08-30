@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div th:fragment="headline" class="jumbotron" style="padding: 2rem 2rem; margin-bottom: 20px">
+    <h1>Library</h1>
+    <p>Otus Spring Framework Course / HW14</p>
+</div>
+
+<div class="row">
+    <div th:fragment="sidebar (active)" class="col-2 px-1">
+        <div class="py-2 sticky-top">
+            <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                <a th:classappend="${active == 'books'} ? active : ''" class="nav-link" href="/books" role="tab">Books</a>
+                <a th:classappend="${active == 'authors'} ? active : ''" class="nav-link" href="/authors" role="tab">Authors</a>
+                <a th:classappend="${active == 'genres'} ? active : ''" class="nav-link" href="/genres" role="tab">Genres</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

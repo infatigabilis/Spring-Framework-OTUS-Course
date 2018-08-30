@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+<script>
+    function submitDeleteForm(id) {
+        $('#delete-form-' + id).submit();
+    }
+</script>
+
+<div th:replace="fragments :: headline" class="jumbotron" style="padding: 2rem 2rem; margin-bottom: 10px">
+    <h1>Library</h1>
+    <p>Otus Spring Framework Course / HW14</p>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments :: sidebar (active='books')" class="col-2 px-1">
+            <div class="py-2 sticky-top">
+                <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link" href="/books" role="tab">Books</a>
+                    <a class="nav-link" href="/authors" role="tab">Authors</a>
+                    <a class="nav-link" href="/genres" role="tab">Genres</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-left: 100px">
+            <div class="row" style="justify-content: space-between; padding: 10px">
+                <h3>Books</h3>
+                <a href="/books/add" role="button" class="btn btn-primary" style="float: right;">Add new</a>
+            </div>
+
+            <div class="row">
+                <table class="table table-hover">
+                    <thead >
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Authors</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="entity : ${data}">
+                    <tr>
+                        <th scope="row" th:text="${entity.id}">1</th>
+                        <td th:text="${entity.title}">Title</td>
+                        <td th:text="${T(ru.otus.springframework.hw14.web.BookController).printAuthors(entity.authors)}">Authors</td>
+                        <td>
+                            <a th:href="'/books/' + ${entity.id}" href="/books/1" role="button" class="btn btn-sm btn-outline-primary">View</a>
+                        </td>
+                        <td style="float:right;">
+                            <a th:href="'/books/edit/' + ${entity.id}" href="/books/edit/1" role="button" class="btn btn-sm btn-link">Edit</a>
+
+                            <form style="display: none"
+                                  th:action="'/books/delete/' + ${entity.id}"
+                                  th:id="'delete-form-' + ${entity.id}"
+                                  method="post">
+                            </form>
+                            <a th:href="'javascript: submitDeleteForm(' +${entity.id} + ')'" href="" role="button" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
