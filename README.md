@@ -31,3 +31,6 @@ Spring Shell.
 
 ## HW14 - Spring MVC Views (Thymeleaf)
 Добавление к HW8 веб-интерфейса на Views (Thymeleaf).
+
+## HW15 - Spring MVC Rest
+Миграция HW14 на RESTful API.
