@@ -23,8 +23,14 @@ Spring Shell.
 Перенос HW6 на JPA и Spring ORM. Добавление возможности
 комментирование книги.
 
-## HW10 - Spring Data MongoDB
-Миграция HW8 на Spring Data MongoDB.
+## HW10 - Spring Data JPA
+Миграция HW8 на Spring Data JPA.
+
+## HW12 - Spring Data MongoDB
+Миграция HW10 на Spring Data MongoDB.
 
 ## HW14 - Spring MVC Views (Thymeleaf)
-Добавление к HW8 веб-интерфейса на Views (Thymeleaf)
+Добавление к HW8 веб-интерфейса на Views (Thymeleaf).
+
+## HW15 - Spring MVC Rest
+Миграция HW14 на RESTful API.
