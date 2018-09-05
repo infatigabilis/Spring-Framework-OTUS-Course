@@ -31,17 +31,17 @@ public class BookInfoRepositoryCustomImpl implements BookInfoRepositoryCustom {
 
     @Override
     public Mono<BookInfo> getOne(String id) {
-        return bookInfoRepository.findById(id).map(this::map);
+        return bookInfoRepository.findById(id).flatMap(this::map);
     }
 
     @Override
     public Flux<BookInfo> getAll() {
-        return bookInfoRepository.findAll().map(this::map);
+        return bookInfoRepository.findAll().flatMap(this::map);
     }
 
     @Override
     public Mono<BookInfo> persist(BookInfo bookInfo) {
-        return bookInfoRepository.save(reverseMap(bookInfo)).map(this::map);
+        return bookInfoRepository.save(reverseMap(bookInfo)).flatMap(this::map);
     }
 
     @Override
@@ -85,14 +85,19 @@ public class BookInfoRepositoryCustomImpl implements BookInfoRepositoryCustom {
         }).then();
     }
 
-    private BookInfo map(BookInfoDocument document) {
-        return BookInfo.builder()
-                .id(document.getId())
-                .title(document.getTitle())
-                .description(document.getDescription())
-                .genres(genreRepository.findAllById(document.getGenreIds()).toStream().collect(Collectors.toList()))
-                .authors(authorRepository.findAllById(document.getAuthorIds()).toStream().collect(Collectors.toList()))
-                .build();
+    private Mono<BookInfo> map(BookInfoDocument document) {
+        return Mono.zip(
+                genreRepository.findAllById(document.getGenreIds()).collectList(),
+                authorRepository.findAllById(document.getAuthorIds()).collectList(),
+
+                (genres, authors) -> BookInfo.builder()
+                            .id(document.getId())
+                            .title(document.getTitle())
+                            .description(document.getDescription())
+                            .genres(genres)
+                            .authors(authors)
+                            .build()
+        );
     }
 
     private BookInfoDocument reverseMap(BookInfo entity) {

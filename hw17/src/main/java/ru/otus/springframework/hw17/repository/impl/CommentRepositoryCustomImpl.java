@@ -24,21 +24,22 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     public Mono<Comment> addWithBookById(Comment comment, String bookId) {
         CommentDocument doc = reverseMap(comment);
         doc.setBookInfoId(bookId);
-        return commentRepository.save(doc).map(this::map);
+        return commentRepository.save(doc).flatMap(this::map);
     }
 
     @Override
     public Flux<Comment> getByBookInfoId(@NotBlank String bookId) {
-        return commentRepository.findByBookInfoId(bookId).map(this::map);
+        return commentRepository.findByBookInfoId(bookId).flatMap(this::map);
     }
 
-    private Comment map(CommentDocument doc) {
-        return Comment.builder()
+    private Mono<Comment> map(CommentDocument doc) {
+        return bookInfoRepository.getOne(doc.getBookInfoId()).map(bookInfo -> Comment.builder()
                 .id(doc.getId())
                 .text(doc.getText())
                 .createAt(doc.getCreateAt())
-                .bookInfo(bookInfoRepository.getOne(doc.getBookInfoId()).block())
-                .build();
+                .bookInfo(bookInfo)
+                .build()
+        );
     }
 
     private CommentDocument reverseMap(Comment entity) {
