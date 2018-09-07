@@ -34,3 +34,6 @@ Spring Shell.
 
 ## HW15 - Spring MVC Rest
 Миграция HW14 на RESTful API.
+
+## HW19 - Spring Security
+Добавление к HW14 Form-based аутентификации на Spring Security.
