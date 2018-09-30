@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    schema: classpath:acl-schema.sql
+  thymeleaf:
+    cache: false
+
+app:
+  security:
+    remember-me-key: hello world
