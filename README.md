@@ -34,3 +34,7 @@ Spring Shell.
 
 ## HW15 - Spring MVC Rest
 Миграция HW14 на RESTful API.
+
+## HW23 - Spring Batch
+Создание утилиты для пакетной миграции из реляционного хранилища в NoSQL на 
+Spring Batch с интерфейсом на Spring Shell.
