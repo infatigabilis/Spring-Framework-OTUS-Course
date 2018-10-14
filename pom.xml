@@ -12,6 +12,7 @@
     <modules>
         <module>hw01</module>
         <module>hw02</module>
+        <module>hw27</module>
     </modules>
 
     <dependencies>
