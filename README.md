@@ -37,3 +37,6 @@ Spring Shell.
 
 ## HW17 - Spring WebFlux & Reactive MongoDB
 Миграция HW15 на WebFlux и Reactive MongoDB.
+
+## HW19 - Spring Security
+Добавление к HW14 Form-based аутентификации на Spring Security.
