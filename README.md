@@ -43,3 +43,7 @@ Spring Shell.
 
 ## HW21 - Spring Security ACL
 Добавление к HW19 авторизации на ACL.
+
+## HW23 - Spring Batch
+Создание утилиты для пакетной миграции из реляционного хранилища в NoSQL на 
+Spring Batch с интерфейсом на Spring Shell.
