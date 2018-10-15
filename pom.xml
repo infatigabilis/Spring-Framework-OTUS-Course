@@ -12,6 +12,16 @@
     <modules>
         <module>hw01</module>
         <module>hw02</module>
+        <module>hw04</module>
+        <module>hw05</module>
+        <module>hw06</module>
+        <module>hw08</module>
+        <module>hw10</module>
+        <module>hw12</module>
+        <module>hw14</module>
+        <module>hw15</module>
+        <module>hw19</module>
+        <module>hw21</module>
     </modules>
 
     <dependencies>
