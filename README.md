@@ -47,3 +47,7 @@ Spring Shell.
 ## HW23 - Spring Batch
 Создание утилиты для пакетной миграции из реляционного хранилища в NoSQL на 
 Spring Batch с интерфейсом на Spring Shell.
+
+## HW25 - Spring Integration
+Создание приложения по обработки уведомлений по SMS, E-mail, Server-to-server
+c использованием Spring Integration.
