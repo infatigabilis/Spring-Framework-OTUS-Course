@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  otus-spring-hw29:
+    container_name: otus-spring-hw29
+    build: .
+    ports:
+    - 8080:8080
+    depends_on:
+    - psql
+
+  psql:
+    container_name: psql
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_PASSWORD=Udk0cCXj7plziXjV8tsg
