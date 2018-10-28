@@ -1,8 +1,8 @@
 FROM maven:3.5.4-jdk-8-alpine
 
-COPY . /home/
+COPY . /home/app/
 
-WORKDIR /home
+WORKDIR /home/app
 
 CMD ["mvn", "spring-boot:run",  "-Dspring-boot.run.profiles=prod"]
 

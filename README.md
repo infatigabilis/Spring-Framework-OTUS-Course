@@ -51,3 +51,6 @@ Spring Batch с интерфейсом на Spring Shell.
 ## HW25 - Spring Integration
 Создание приложения по обработки уведомлений по SMS, E-mail, Server-to-server
 c использованием Spring Integration.
+
+## HW29 - Docker
+Обвертывание HW21 в Docker и Docker Compose. А также добавление Liquebase.

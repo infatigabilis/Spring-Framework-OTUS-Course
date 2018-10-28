@@ -70,7 +70,7 @@ public class BookController {
     }
 
     @GetMapping("edit/{id}")
-    @PreAuthorize("hasPermission(#id, 'ru.otus.springframework.hw21.domain.BookInfo', 'WRITE')")
+    @PreAuthorize("hasPermission(#id, 'ru.otus.springframework.hw29.domain.BookInfo', 'WRITE')")
     @Transactional(readOnly = true)
     public String getEditPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("data", bookInfoRepository.getOne(id));
@@ -90,7 +90,7 @@ public class BookController {
     }
 
     @PostMapping("update")
-    @PreAuthorize("hasPermission(#book.id, 'ru.otus.springframework.hw21.domain.BookInfo', 'WRITE')")
+    @PreAuthorize("hasPermission(#book.id, 'ru.otus.springframework.hw29.domain.BookInfo', 'WRITE')")
     public String update(@Validated({Default.class, ValidationGroup.Update.class}) BookInfo book) {
         bookInfoRepository.merge(book);
 
@@ -98,7 +98,7 @@ public class BookController {
     }
 
     @PostMapping("delete/{id}")
-    @PreAuthorize("hasPermission(#id, 'ru.otus.springframework.hw21.domain.BookInfo', 'DELETE')")
+    @PreAuthorize("hasPermission(#id, 'ru.otus.springframework.hw29.domain.BookInfo', 'DELETE')")
     public String remove(@PathVariable("id") long id) {
         bookInfoRepository.deleteById(id);
 
@@ -115,7 +115,7 @@ public class BookController {
     }
 
     @PostMapping("add_author/{bookId}")
-    @PreAuthorize("hasPermission(#bookId, 'ru.otus.springframework.hw21.domain.BookInfo', 'WRITE')")
+    @PreAuthorize("hasPermission(#bookId, 'ru.otus.springframework.hw29.domain.BookInfo', 'WRITE')")
     public String addAuthor(@PathVariable("bookId") long bookId, @RequestParam("authorId") long authorId) {
         bookInfoRepository.addAuthorById(bookId, authorId);
 
@@ -123,7 +123,7 @@ public class BookController {
     }
 
     @PostMapping("add_genre/{bookId}")
-    @PreAuthorize("hasPermission(#bookId, 'ru.otus.springframework.hw21.domain.BookInfo', 'WRITE')")
+    @PreAuthorize("hasPermission(#bookId, 'ru.otus.springframework.hw29.domain.BookInfo', 'WRITE')")
     public String addGenre(@PathVariable("bookId") long bookId, @RequestParam("genreId") long genreId) {
         bookInfoRepository.addGenreById(bookId, genreId);
 
