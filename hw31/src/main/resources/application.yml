@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: INFO
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: ERROR
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  thymeleaf:
+    cache: false
+
+hystrix:
+  shareSecurityContext: true
+
+app:
+  security:
+    remember-me-key: hello world

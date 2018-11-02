@@ -51,3 +51,6 @@ Spring Batch с интерфейсом на Spring Shell.
 ## HW25 - Spring Integration
 Создание приложения по обработки уведомлений по SMS, E-mail, Server-to-server
 c использованием Spring Integration.
+
+## HW31 - Hystrix
+Оборачивание всех вызов к бд(включая Security и ACL) HW29 в Hystrix. 
