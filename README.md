@@ -51,3 +51,7 @@ Spring Batch с интерфейсом на Spring Shell.
 ## HW25 - Spring Integration
 Создание приложения по обработки уведомлений по SMS, E-mail, Server-to-server
 c использованием Spring Integration.
+
+## HW27 - Spring Actuator, Spring Data Rest
+Миграция приложения-библиотеки на Data Rest и подключения Spring Actuator
+с кастомным healthcheck'ом и метрикой. Добавление Hal браузера.
