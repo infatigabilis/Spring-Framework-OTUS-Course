@@ -58,3 +58,6 @@ c использованием Spring Integration.
 
 ## HW29 - Docker
 Обвертывание HW21 в Docker и Docker Compose. А также добавление Liquebase.
+
+## HW31 - Hystrix
+Оборачивание всех вызов к бд(включая Security и ACL) HW29 в Hystrix. 

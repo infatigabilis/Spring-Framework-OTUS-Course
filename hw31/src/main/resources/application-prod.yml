@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://psql:5432/library
+    password: Udk0cCXj7plziXjV8tsg
