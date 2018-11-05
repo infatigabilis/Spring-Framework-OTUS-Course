@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  otus-spring-hw29:
+    container_name: otus-spring-hw29
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - otus-spring-hw29-maven-reps:/root/.m2
+    depends_on:
+      - psql
+
+  psql:
+    container_name: psql
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_PASSWORD=Udk0cCXj7plziXjV8tsg
+    expose:
+      - 5432
+    volumes:
+      - otus-spring-hw29-db:/var/lib/postgresql/data
+
+volumes:
+  otus-spring-hw29-maven-reps:
+    external: true
+  otus-spring-hw29-db:
+    external: true
