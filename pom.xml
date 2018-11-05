@@ -22,6 +22,7 @@
         <module>hw15</module>
         <module>hw19</module>
         <module>hw21</module>
+        <module>hw27</module>
     </modules>
 
     <dependencies>

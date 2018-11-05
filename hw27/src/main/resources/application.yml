@@ -1,0 +1,13 @@
+logging:
+  file: /tmp/otur-spring-logfile
+  level:
+    root: INFO
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
