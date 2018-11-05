@@ -1,0 +1,3 @@
+app:
+  notification:
+    balance-notification-threshold: 500

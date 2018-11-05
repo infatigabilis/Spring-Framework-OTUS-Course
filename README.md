@@ -38,6 +38,20 @@ Spring Shell.
 ## HW17 - Spring WebFlux & Reactive MongoDB
 Миграция HW15 на WebFlux и Reactive MongoDB.
 
+## HW19 - Spring Security
+Добавление к HW14 Form-based аутентификации на Spring Security.
+
+## HW21 - Spring Security ACL
+Добавление к HW19 авторизации на ACL.
+
+## HW23 - Spring Batch
+Создание утилиты для пакетной миграции из реляционного хранилища в NoSQL на 
+Spring Batch с интерфейсом на Spring Shell.
+
+## HW25 - Spring Integration
+Создание приложения по обработки уведомлений по SMS, E-mail, Server-to-server
+c использованием Spring Integration.
+
 ## HW27 - Spring Actuator, Spring Data Rest
 Миграция приложения-библиотеки на Data Rest и подключения Spring Actuator
 с кастомным healthcheck'ом и метрикой. Добавление Hal браузера.
