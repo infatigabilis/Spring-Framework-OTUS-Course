@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: INFO
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: ERROR
+
+spring:
+  liquibase:
+    enabled: false
