@@ -26,6 +26,8 @@
         <module>hw23</module>
         <module>hw25</module>
         <module>hw27</module>
+        <module>hw29</module>
+        <module>hw31</module>
     </modules>
 
     <dependencies>
